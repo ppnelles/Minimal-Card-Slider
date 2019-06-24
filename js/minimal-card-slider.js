@@ -12,8 +12,8 @@ $(window).ready(function(){
 		if(slideDirection == 'prev') {
 			if(currentIndex > 0) {
 				--currentIndex;
-				$('.card-slider .inner').css('left', -currentIndex*elementWidth);
-				$('.slider-nav button').removeClass('disabled');
+				$(this).closest('inner').css('left', -currentIndex*elementWidth);
+				$(this).removeClass('disabled');
 			}
 
 			if(currentIndex == 0) {
@@ -24,8 +24,8 @@ $(window).ready(function(){
 		else if(slideDirection == 'next') {
 			if(currentIndex < maxIndex) {
 				++currentIndex;
-				$('.card-slider .inner').css('left', -currentIndex*elementWidth);
-				$('.slider-nav button').removeClass('disabled');
+				$(this).closest('inner').css('left', -currentIndex*elementWidth);
+				$(this).removeClass('disabled');
 			}
 
 			if(currentIndex > maxIndex - 1) {
