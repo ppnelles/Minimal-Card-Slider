@@ -1,34 +1,69 @@
 $(window).ready(function(){
-	var sliderArea = $('.card-slider .inner').outerWidth();
-	var elementWidth = $('.card-slider li').outerWidth();
-	var totalElements = $('.card-slider ul li').length;
-	var visibleElements = sliderArea / elementWidth;
-	var maxIndex = totalElements - visibleElements;
-	var currentIndex = 0;
+	var prod_sliderArea = $('#producteurs .inner').outerWidth();
+	var prod_elementWidth = $('#producteurs li').outerWidth();
+	var prod_totalElements = $('#producteurs ul li').length;
+	var prod_visibleElements = prod_sliderArea / prod_elementWidth;
+	var prod_maxIndex = prod_totalElements - prod_visibleElements;
+	var prod_currentIndex = 0;
 
-	$('.slider-nav button').click(function(event) {
-		slideDirection = jQuery(this).attr('data-direction');
+	$('#producteurs .slider-nav button').click(function(event) {
+		prod_slideDirection = jQuery(this).attr('data-direction');
 
-		if(slideDirection == 'prev') {
-			if(currentIndex > 0) {
-				--currentIndex;
-				$(this).closest('inner').css('left', -currentIndex*elementWidth);
-				$(this).removeClass('disabled');
+		if(prod_slideDirection == 'prev') {
+			if(prod_currentIndex > 0) {
+				--prod_currentIndex;
+				$('#producteurs .inner').css('left', -prod_currentIndex*prod_elementWidth);
+				$('#producteurs .slider-nav button').removeClass('disabled');
 			}
 
-			if(currentIndex == 0) {
+			if(prod_currentIndex == 0) {
 				$(this).addClass('disabled');
 			}
 		}
 
-		else if(slideDirection == 'next') {
-			if(currentIndex < maxIndex) {
-				++currentIndex;
-				$(this).closest('inner').css('left', -currentIndex*elementWidth);
-				$(this).removeClass('disabled');
+		else if(prod_slideDirection == 'next') {
+			if(prod_currentIndex < prod_maxIndex) {
+				++prod_currentIndex;
+				$('#producteurs .inner').css('left', -prod_currentIndex*prod_elementWidth);
+				$('#producteurs .slider-nav button').removeClass('disabled');
 			}
 
-			if(currentIndex > maxIndex - 1) {
+			if(prod_currentIndex > prod_maxIndex - 1) {
+				$(this).addClass('disabled');
+			}
+		}
+	});
+
+	var rece_sliderArea = $('#recettes .inner').outerWidth();
+	var rece_elementWidth = $('#recettes li').outerWidth();
+	var rece_totalElements = $('#recettes ul li').length;
+	var rece_visibleElements = rece_sliderArea / rece_elementWidth;
+	var rece_maxIndex = rece_totalElements - rece_visibleElements;
+	var rece_currentIndex = 0;
+
+	$('#recettes .slider-nav button').click(function(event) {
+		rece_slideDirection = jQuery(this).attr('data-direction');
+
+		if(rece_slideDirection == 'prev') {
+			if(rece_currentIndex > 0) {
+				--rece_currentIndex;
+				$('#recettes .inner').css('left', -rece_currentIndex*rece_elementWidth);
+				$('#recettes .slider-nav button').removeClass('disabled');
+			}
+
+			if(rece_currentIndex == 0) {
+				$(this).addClass('disabled');
+			}
+		}
+
+		else if(rece_slideDirection == 'next') {
+			if(rece_currentIndex < rece_maxIndex) {
+				++rece_currentIndex;
+				$('#recettes .inner').css('left', -rece_currentIndex*rece_elementWidth);
+				$('#recettes .slider-nav button').removeClass('disabled');
+			}
+
+			if(rece_currentIndex > rece_maxIndex - 1) {
 				$(this).addClass('disabled');
 			}
 		}
