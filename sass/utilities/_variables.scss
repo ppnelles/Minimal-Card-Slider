@@ -1,0 +1,36 @@
+/* 
+* Breakpoints
+* Its better to use them in EM, because there are proportionnal, not like PX.
+* In our case, because we tweek the html fontsize to 62.5%, our EM base is 18px.
+* Tweak it or extend it in order to fit your project.
+*/
+
+$bp-xxs: 20em; // =360px
+$bp-xs: 25em; // =450px
+$bp-s: 30em; // =540px
+$bp-sm: 42.5em; // =765px
+$bp-md: 55em; // =990px
+$bp-lg: 67em; // =1206px
+$bp-xl: 89em; // =1602px
+$bp-xxl: 111em; // =1998px
+
+/* 
+* Fonts Families
+*/
+
+$font-body: Georgia, Times, "Times New Roman", serif;
+$font-title: "Helvetica Neue", Helvetica, Arial sans-serif;
+
+/*
+* Colors
+*/
+
+$brand-primary: #3498db;
+$brand-secondary: #27ae60;
+$brand-action: #d35400;
+$text-regular: #333333;
+$text-title: #000000;
+$neutral-element: #bdc3c7;
+
+$link-color: $brand-primary;
+$border-color: $neutral-element;

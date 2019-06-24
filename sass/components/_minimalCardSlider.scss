@@ -1,0 +1,52 @@
+header {
+	margin: 2em 0;
+	text-align: center;
+
+	h1 {
+		margin-bottom: 0;
+	}
+}
+
+.card-slider {
+	width: 60%;
+	margin: 3em auto 0;
+	overflow: hidden;
+
+	ul {
+		@include reset-list();
+		width: 100%;
+		white-space: nowrap;
+		box-sizing: border-box;
+
+		li {
+			position: relative;
+		    display: inline-block;
+		    width: 25%;
+		    height: 100%;
+		    vertical-align: top;
+		    box-sizing: border-box;
+    		white-space: normal;
+    		padding: 0 1.5em 0 0;
+    		margin-right: -4px; //fighting inline-block space between
+		}
+	}
+
+	.inner {
+		position: relative;
+	    transition: left 200ms ease;
+		left: 0;
+	}
+
+	.slider-nav {
+		width: 100%;
+		overflow: hidden;
+
+		.disabled {
+			opacity: 0.4;
+		}
+	}
+
+	.slide-next {
+		float: right;
+	}
+}
