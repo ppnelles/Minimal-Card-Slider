@@ -5,14 +5,13 @@
 * Tweak it or extend it in order to fit your project.
 */
 
-$bp-xxs: 20em; // =360px
-$bp-xs: 25em; // =450px
-$bp-s: 30em; // =540px
-$bp-sm: 42.5em; // =765px
-$bp-md: 55em; // =990px
-$bp-lg: 67em; // =1206px
-$bp-xl: 89em; // =1602px
-$bp-xxl: 111em; // =1998px
+$breakpoints: (
+    'screen-xs': 450px,
+    'screen-sm': 740px,
+    'screen-md': 980px,
+    'screen-lg': 1100px,
+    'screen-xl': 1300px
+);
 
 /* 
 * Fonts Families

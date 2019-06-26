@@ -1,72 +1,115 @@
-$(window).ready(function(){
-	var prod_sliderArea = $('#producteurs .inner').outerWidth();
-	var prod_elementWidth = $('#producteurs li').outerWidth();
-	var prod_totalElements = $('#producteurs ul li').length;
-	var prod_visibleElements = prod_sliderArea / prod_elementWidth;
-	var prod_maxIndex = prod_totalElements - prod_visibleElements;
-	var prod_currentIndex = 0;
-
-	$('#producteurs .slider-nav button').click(function(event) {
-		prod_slideDirection = jQuery(this).attr('data-direction');
-
-		if(prod_slideDirection == 'prev') {
-			if(prod_currentIndex > 0) {
-				--prod_currentIndex;
-				$('#producteurs .inner').css('left', -prod_currentIndex*prod_elementWidth);
-				$('#producteurs .slider-nav button').removeClass('disabled');
-			}
-
-			if(prod_currentIndex == 0) {
-				$(this).addClass('disabled');
-			}
+$(".card-slider").each(function(){
+	var $slider = $(this),
+		$sliderContainer = $slider.find(".inner"),
+		$sliderList = $slider.find(".inner > ul"),
+		$sliderItem = $slider.find(".inner > ul > li"),
+		$sliderButton = $slider.find(".slider-nav button"),
+		$slidePrev = $slider.find('[data-direction="prev"]'),
+		$slideNext = $slider.find('[data-direction="next"]'),
+		setItemWidth = function(){
+			$sliderList.removeAttr("style");
+			var curWidth = $($sliderItem[0]).outerWidth() * $sliderItem.length;
+			$sliderList.css("width", curWidth);
+		},
+		slide = function(){
+			var $button = $(this),
+				dir = $button.data("direction"),
+				curPos = parseInt($sliderList.css("left")) || 0,
+				moveto = 0,
+				containerWidth = $sliderContainer.outerWidth(),
+				listWidth = $sliderList.outerWidth(),
+				before = (curPos + containerWidth),
+				after = listWidth + (curPos - containerWidth);
+		if(after < containerWidth) {
+			$slideNext.addClass('disabled');
+			$slidePrev.removeClass('disabled');
 		}
-
-		else if(prod_slideDirection == 'next') {
-			if(prod_currentIndex < prod_maxIndex) {
-				++prod_currentIndex;
-				$('#producteurs .inner').css('left', -prod_currentIndex*prod_elementWidth);
-				$('#producteurs .slider-nav button').removeClass('disabled');
+		
+		else if(curPos == 0) {
+			$slidePrev.addClass('disabled');
+			$slideNext.removeClass('disabled');
+		}	
+		else {
+			$slidePrev.removeClass('disabled');
+			$slideNext.removeClass('disabled');
+		}	
+			
+			if(dir=="next"){
+				moveto = (after < containerWidth) ? curPos - after : curPos - containerWidth;
+			} else {
+				moveto = (before >= 0) ? 0 : curPos + containerWidth;
 			}
 
-			if(prod_currentIndex > prod_maxIndex - 1) {
-				$(this).addClass('disabled');
-			}
-		}
+
+
+			$sliderList.css('left', moveto);
+		};
+	$(window).resize(function(){
+		setItemWidth();
 	});
+	setItemWidth();
+	
+	$sliderButton.on("click", slide);
+});
 
-	var rece_sliderArea = $('#recettes .inner').outerWidth();
-	var rece_elementWidth = $('#recettes li').outerWidth();
-	var rece_totalElements = $('#recettes ul li').length;
-	var rece_visibleElements = rece_sliderArea / rece_elementWidth;
-	var rece_maxIndex = rece_totalElements - rece_visibleElements;
-	var rece_currentIndex = 0;
+/*$(".card-slider").each(function(){
+	var	slider = $(this),
+		sliderButton = slider.find(".slider-nav button"),
+		sliderArea = slider.find('.inner > ul'),
+		currentIndex = 0,
+		slidePrev = slider.find('[data-direction="prev"]'),
+		slideNext = slider.find('[data-direction="next"]'),
+		currentWindowSize = $(window).width();
+	getWindowSize = function() {
+		var newWindowSize = $(window).width();
 
-	$('#recettes .slider-nav button').click(function(event) {
-		rece_slideDirection = jQuery(this).attr('data-direction');
+		return newWindowSize;
+	},
+	setItem = function() {
+		slider.removeAttr('data-maxIndex');
+		sliderAreaWidth = slider.find('.inner > ul').outerWidth();
+		elementWidth = slider.find('.inner > ul > li').outerWidth();
+		visibleElements = parseInt(sliderAreaWidth / elementWidth);
+		slider.attr('data-maxIndex', slider.find('.inner > ul > li').length - visibleElements);
+	},
+	slide = function(){
+		var slideDirection = $(this).attr('data-direction');
+		var maxIndex = $(this).closest('.card-slider').attr('data-maxIndex');
 
-		if(rece_slideDirection == 'prev') {
-			if(rece_currentIndex > 0) {
-				--rece_currentIndex;
-				$('#recettes .inner').css('left', -rece_currentIndex*rece_elementWidth);
-				$('#recettes .slider-nav button').removeClass('disabled');
-			}
-
-			if(rece_currentIndex == 0) {
-				$(this).addClass('disabled');
+		if(getWindowSize() != currentWindowSize) {
+			currentWindowSize = $(window).width();
+			setItem();
+		}
+		
+		if(slideDirection == 'prev') {
+			if(currentIndex > 0) {
+				--currentIndex;
+				sliderArea.css('left', -currentIndex*elementWidth);
+				slideNext.removeClass('disabled');
 			}
 		}
 
-		else if(rece_slideDirection == 'next') {
-			if(rece_currentIndex < rece_maxIndex) {
-				++rece_currentIndex;
-				$('#recettes .inner').css('left', -rece_currentIndex*rece_elementWidth);
-				$('#recettes .slider-nav button').removeClass('disabled');
-			}
-
-			if(rece_currentIndex > rece_maxIndex - 1) {
-				$(this).addClass('disabled');
+		else if(slideDirection == 'next') {
+			if(currentIndex < maxIndex) {
+				++currentIndex;
+				sliderArea.css('left', -currentIndex*elementWidth);
+				slidePrev.removeClass('disabled');
 			}
 		}
-	});
+
+		if(currentIndex == maxIndex) {
+			slideNext.addClass('disabled');
+		}
+		else if(currentIndex == 0) {
+			slidePrev.addClass('disabled');
+		}
+		else {
+			slidePrev.removeClass('disabled');
+			slideNext.removeClass('disabled');
+		}
+	};
+	setItem();
+	sliderButton.on("click", slide);
 
 });
+*/
