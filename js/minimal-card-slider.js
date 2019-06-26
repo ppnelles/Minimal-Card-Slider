@@ -6,11 +6,13 @@ $(".card-slider").each(function(){
 		$sliderButton = $slider.find(".slider-nav button"),
 		$slidePrev = $slider.find('[data-direction="prev"]'),
 		$slideNext = $slider.find('[data-direction="next"]'),
+		
 		setItemWidth = function(){
 			$sliderList.removeAttr("style");
 			var curWidth = $($sliderItem[0]).outerWidth() * $sliderItem.length;
 			$sliderList.css("width", curWidth);
 		},
+		
 		slide = function(){
 			var $button = $(this),
 				dir = $button.data("direction"),
@@ -20,20 +22,21 @@ $(".card-slider").each(function(){
 				listWidth = $sliderList.outerWidth(),
 				before = (curPos + containerWidth),
 				after = listWidth + (curPos - containerWidth);
-		if(after < containerWidth) {
-			$slideNext.addClass('disabled');
-			$slidePrev.removeClass('disabled');
-		}
-		
-		else if(curPos == 0) {
-			$slidePrev.addClass('disabled');
-			$slideNext.removeClass('disabled');
-		}	
-		else {
-			$slidePrev.removeClass('disabled');
-			$slideNext.removeClass('disabled');
-		}	
+	
+			if(after < containerWidth) {
+				$slideNext.addClass('disabled');
+				$slidePrev.removeClass('disabled');
+			}
 			
+			else if(curPos == 0) {
+				$slidePrev.addClass('disabled');
+				$slideNext.removeClass('disabled');
+			}	
+			else {
+				$slidePrev.removeClass('disabled');
+				$slideNext.removeClass('disabled');
+			}	
+
 			if(dir=="next"){
 				moveto = (after < containerWidth) ? curPos - after : curPos - containerWidth;
 			} else {
