@@ -22,8 +22,7 @@ $(".card-slider").each(function(){
 				listWidth = $sliderList.outerWidth(),
 				before = (curPos + containerWidth),
 				after = listWidth + (curPos - containerWidth);
-				
-
+			
 			if(dir=="next"){
 				if(after < containerWidth) {
 					moveto = curPos - after;
@@ -49,10 +48,11 @@ $(".card-slider").each(function(){
 
 			$sliderList.css('left', moveto);
 		};
+	
 	$(window).resize(function(){
 		setItemWidth();
 	});
-	setItemWidth();
 	
+	setItemWidth();
 	$sliderButton.on("click", slide);
 });
