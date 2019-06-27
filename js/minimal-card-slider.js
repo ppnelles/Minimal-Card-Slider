@@ -22,28 +22,30 @@ $(".card-slider").each(function(){
 				listWidth = $sliderList.outerWidth(),
 				before = (curPos + containerWidth),
 				after = listWidth + (curPos - containerWidth);
-	
-			if(after < containerWidth) {
-				$slideNext.addClass('disabled');
-				$slidePrev.removeClass('disabled');
-			}
-			
-			else if(curPos == 0) {
-				$slidePrev.addClass('disabled');
-				$slideNext.removeClass('disabled');
-			}	
-			else {
-				$slidePrev.removeClass('disabled');
-				$slideNext.removeClass('disabled');
-			}	
+				
 
 			if(dir=="next"){
-				moveto = (after < containerWidth) ? curPos - after : curPos - containerWidth;
-			} else {
-				moveto = (before >= 0) ? 0 : curPos + containerWidth;
+				if(after < containerWidth) {
+					moveto = curPos - after;
+					$slideNext.addClass('disabled');
+					$slidePrev.removeClass('disabled');
+				}
+				else {
+					moveto = curPos - containerWidth;
+					$slidePrev.removeClass('disabled');
+				}
+			} 
+			else {
+				if(before >= 0) {
+					moveto = 0;
+					$slidePrev.addClass('disabled');
+					$slideNext.removeClass('disabled');
+				}
+				else {
+					moveto = curPos + containerWidth;
+					$slideNext.removeClass('disabled');
+				}
 			}
-
-
 
 			$sliderList.css('left', moveto);
 		};
@@ -54,65 +56,3 @@ $(".card-slider").each(function(){
 	
 	$sliderButton.on("click", slide);
 });
-
-/*$(".card-slider").each(function(){
-	var	slider = $(this),
-		sliderButton = slider.find(".slider-nav button"),
-		sliderArea = slider.find('.inner > ul'),
-		currentIndex = 0,
-		slidePrev = slider.find('[data-direction="prev"]'),
-		slideNext = slider.find('[data-direction="next"]'),
-		currentWindowSize = $(window).width();
-	getWindowSize = function() {
-		var newWindowSize = $(window).width();
-
-		return newWindowSize;
-	},
-	setItem = function() {
-		slider.removeAttr('data-maxIndex');
-		sliderAreaWidth = slider.find('.inner > ul').outerWidth();
-		elementWidth = slider.find('.inner > ul > li').outerWidth();
-		visibleElements = parseInt(sliderAreaWidth / elementWidth);
-		slider.attr('data-maxIndex', slider.find('.inner > ul > li').length - visibleElements);
-	},
-	slide = function(){
-		var slideDirection = $(this).attr('data-direction');
-		var maxIndex = $(this).closest('.card-slider').attr('data-maxIndex');
-
-		if(getWindowSize() != currentWindowSize) {
-			currentWindowSize = $(window).width();
-			setItem();
-		}
-		
-		if(slideDirection == 'prev') {
-			if(currentIndex > 0) {
-				--currentIndex;
-				sliderArea.css('left', -currentIndex*elementWidth);
-				slideNext.removeClass('disabled');
-			}
-		}
-
-		else if(slideDirection == 'next') {
-			if(currentIndex < maxIndex) {
-				++currentIndex;
-				sliderArea.css('left', -currentIndex*elementWidth);
-				slidePrev.removeClass('disabled');
-			}
-		}
-
-		if(currentIndex == maxIndex) {
-			slideNext.addClass('disabled');
-		}
-		else if(currentIndex == 0) {
-			slidePrev.addClass('disabled');
-		}
-		else {
-			slidePrev.removeClass('disabled');
-			slideNext.removeClass('disabled');
-		}
-	};
-	setItem();
-	sliderButton.on("click", slide);
-
-});
-*/
